@@ -13,7 +13,7 @@
 
 ### Association
 has_one:items,destination::destroy
-has_one_purchase_managementes,destination::destroy
+has_one：purchase_managementes,destination::destroy
 
 ## shippingsテーブル
 |  Colum          |  Type      |  Options   |
@@ -25,6 +25,10 @@ has_one_purchase_managementes,destination::destroy
 | building_name   | string     |            |
 | phone_num       | string     | unique:true|
 
+### Association
+has_one:items,destination::destroy
+has_one:users,destination::destroy
+
 ## purchase_managementsテーブル
 |colum| Type      | Options                    |
 | ----| ----------| ---------------------------|
@@ -33,16 +37,15 @@ has_one_purchase_managementes,destination::destroy
 
 ### Association
 belongs_to:user
-belongs_to:item
-has_one:items,destination:destroy
-has_one:shipping,destination:destroy
+has_one:item,destination::destroy
+has_one:shipping,destination::destroy
 
 ## itemsテーブル
 | Colum             | Type      | Options         |
 | ------------------| ----------| ----------------|
 | name              | string    | null:false      |
-| item_explanation  | text      | null:false      |
-| category_id       | integer   |null:false       |
+| explanation       | text      | null:false      |
+| category_id       | integer   | null:false      |
 | item_condition_id | integer   | null:false      |
 | postage_payer_id  | integer   | null:false      |
 | prefecture_code_id| integer   | null:false      |
@@ -52,3 +55,5 @@ has_one:shipping,destination:destroy
 
 ### Association
 belongs_to:user
+has_one:purchase_managements,destinations::destroy
+has_one:shipping,destination::destroy
