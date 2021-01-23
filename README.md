@@ -12,32 +12,29 @@
 | birth             | date  | null:false            |
 
 ### Association
-has_one:items,destination::destroy
-has_one：purchase_managementes,destination::destroy
+has_many:items,dependent::destroy
+has_many：purchase_managementes,dependent::destroy
 
 ## shippingsテーブル
-|  Colum          |  Type      |  Options   |
-| ----------------| -----------| -----------|
-| post_code       | string     | null:false |
-| prefecture_code | integer    | null:false |
-| city            | string     | null:false |
-| house_num       | string     | null:false |
-| building_name   | string     |            |
-| phone_num       | string     | unique:true|
+|  Colum            |  Type      |  Options  |
+| ------------------| -----------| ----------|
+| post_code         | string     | null:false|
+| prefecture_code_id| integer    | null:false|
+| city              | string     | null:false|
+| house_num         | string     | null:false|
+| building_name     | string     |           |
+| phone_num         | string     | null:false|
 
 ### Association
-has_one:items,destination::destroy
-has_one:users,destination::destroy
+has_one:purchase_managements,destination::destroy
 
 ## purchase_managementsテーブル
 |colum| Type      | Options                    |
 | ----| ----------| ---------------------------|
 | user| references| null:false,foreign_key:true|
-| item| reference | null:false,foreign_key:true|
+| item| references| null:false,foreign_key:true|
 
 ### Association
-belongs_to:user
-has_one:item,destination::destroy
 has_one:shipping,destination::destroy
 
 ## itemsテーブル
@@ -56,4 +53,3 @@ has_one:shipping,destination::destroy
 ### Association
 belongs_to:user
 has_one:purchase_managements,destinations::destroy
-has_one:shipping,destination::destroy
