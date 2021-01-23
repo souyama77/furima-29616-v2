@@ -24,10 +24,10 @@ has_many：purchase_managementes,dependent::destroy
 | house_num          | string     | null:false      |
 | building_name      | string     |                 |
 | phone_num          | string     | null:false      |
-|purchase_managements| references | foreign_key:true|
+|purchase_management | references | foreign_key:true|
 
 ### Association
-belongs_to:purchase_managements
+belongs_to:purchase_management
 
 ## purchase_managementsテーブル
 |colum| Type      | Options                    |
@@ -37,7 +37,7 @@ belongs_to:purchase_managements
 
 ### Association
 belongs_to:user
-belongs_to:items
+belongs_to:item
 has_one:shipping,destination::destroy
 
 ## itemsテーブル
