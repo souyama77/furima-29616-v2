@@ -1,24 +1,58 @@
-# README
+## usersテーブル
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+|  Column           |  Type |  Options              |
+| ------------------| ------| ----------------------|
+| nickname          | string| null:false            |
+| encrypted_password| string| null:false            |
+| email             | string| null:false,unique:true|
+| family_name       | string| null:false            |
+| first_name        | string| null:false            |
+| family_name_kana  | string| null:false            |
+| first_name_kana   | string| null:false            |
+| birth             | date  | null:false            |
 
-Things you may want to cover:
+### Association
+has_many:items,dependent::destroy
+has_many：purchase_managementes,dependent::destroy
 
-* Ruby version
+## shippingsテーブル
+|  Colum             |  Type      |  Options        |
+| -------------------| -----------| ----------------|
+| post_code          | string     | null:false      |
+| prefecture_code_id | integer    | null:false      |
+| city               | string     | null:false      |
+| house_num          | string     | null:false      |
+| building_name      | string     |                 |
+| phone_num          | string     | null:false      |
+|purchase_management | references | foreign_key:true|
 
-* System dependencies
+### Association
+belongs_to:purchase_management
 
-* Configuration
+## purchase_managementsテーブル
+|colum| Type      | Options                    |
+| ----| ----------| ---------------------------|
+| user| references| null:false,foreign_key:true|
+| item| references| null:false,foreign_key:true|
 
-* Database creation
+### Association
+belongs_to:user
+belongs_to:item
+has_one:shipping,destination::destroy
 
-* Database initialization
+## itemsテーブル
+| Colum             | Type      | Options         |
+| ------------------| ----------| ----------------|
+| name              | string    | null:false      |
+| explanation       | text      | null:false      |
+| category_id       | integer   | null:false      |
+| item_condition_id | integer   | null:false      |
+| postage_payer_id  | integer   | null:false      |
+| prefecture_code_id| integer   | null:false      |
+| preparation_day_id| integer   | null:false      |
+| price             | integer   | null:false      |
+| user              | references| foreign_key:true|
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Association
+belongs_to:user
+has_one:purchase_management,destinations::destroy
