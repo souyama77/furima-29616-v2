@@ -16,7 +16,6 @@ RSpec.describe User, type: :model do
     it "emailが空では登録できない" do
       @usser.email = nil
       @user.valid?
-      binding.pry
       expect(@user.errors.full_messages).to include("Email can't be blank")
     end
     it "emailの一意性" do
