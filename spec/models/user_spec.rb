@@ -40,6 +40,21 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("password is invalid")
     end
+    it "passwordが英語のみでは登録できない" do
+      @user = "abcdef"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("password is invalide")
+    end
+    it "passwordが数字のみでは登録できない" do
+      @user = "123456"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("password is invalide")
+    end
+    it "passwordが全角では登録できない" do
+      @user = "ABCDEF"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("password is invalide")
+    end
     it "passwordが半角英数字混合で無くては登録できない" do
       @user = "123456"
       @user.valid?
@@ -60,6 +75,16 @@ RSpec.describe User, type: :model do
       @user = nil
       @user.valid?
       expect(@user.errors.full_messages).to include("first_name can't be blank")
+    end
+    it "faimiy_name_kanaが空では登録できない" do
+      @user = nil
+      @user.valid?
+      expect(@user.errors.full_messages).to include("family_name_kana can't be blank")
+    end
+    it "firdt_name_kanaが空では登録できない" do
+      @user = nil
+      @user.valid?
+      expect(@user.errors.full_messages).to include("first_name_kana can't be blank")
     end
     it "family_name_kanaが平仮名では登録できない" do
       @user = "やまだ"

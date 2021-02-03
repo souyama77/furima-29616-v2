@@ -28,9 +28,4 @@ class User < ApplicationRecord
   with_options length: { minimum: 6 }, format:{ with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i} do
     validates :password
   end
-
-  with_options format:{ with: /\A\S+@\S+\.\S+\z/} do
-    validates :email
-  end
-
 end
