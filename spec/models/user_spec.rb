@@ -77,12 +77,12 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("first_name can't be blank")
     end
     it "family_nameが漢字、平仮名、カタカナ以外では登録できない" do
-      @user = Yamada
+      @user = "Yamada"
       @user.valid?
       expect(@user.errors.full_messages).to include("family_name is invalid")
     end
     it "first_nameが漢字、平仮名、カタカナ以外では登録できない" do
-      @useer = Tarou
+      @useer = "Tarou"
       @user.valid?
       expect(@user.errors.full_messages).to include("first_name is invalide")
     end
@@ -107,22 +107,22 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("first_name_kana is invalid")
     end
     it "family_name_kanaが漢字では登録できない" do
-      @user = 山田
+      @user = "山田"
       @user.valid?
       expect(@user.errors.full_messages).to include("family_name_kana is invalide")
     end
     it "first_name_kanaが漢字では登録できない" do
-      @user = 太郎
+      @user = "太郎"
       @user.valid?
       expect(@user.errors.full_messages).to include("first_name_kana is invalide")
     end
     it "family_name_kanaがアルファベットがあると登録できない" do
-      @user = Yamada
+      @user = "Yamada"
       @user.valid?
       expect(@user.errors.full_messages).to include("family_name_kana is invalide")
     end
     it "first_name_kanaがアルファベットがあると登録できない" do
-      @user = Tarou
+      @user = "Tarou"
       @user.valid?
       expect(@user.errors.full_messages).to include("first_name_kana is invalide")
     end
