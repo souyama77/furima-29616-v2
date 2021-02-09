@@ -32,43 +32,64 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
-      
-      it "item_conditionが空の時" do
-        @item.item_condition = nil
+      it "category_id:0の時" do
+        @item.category_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category must be other than 0")
+      end
+      it "item_condition_idが空の時" do
+        @item.item_condition_id = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Item condition can't be blank")
       end
-      
+      it "item_condition_id:0の時" do
+        @item.item_condition_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Item condition must be other than 0")
+      end
       it "postage_payer_idが空の時" do
         @item.postage_payer_id = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Postage payer can't be blank")
       end
-      
+      it "postage_payer_id:0の時" do
+        @item.postage_payer_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Postage payer must be other than 0")
+      end
       it "prefecture_code_idが空の時" do
         @item.prefecture_code_id = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture code can't be blank")
       end
-      
+      it "prefecture_code_id:0の時" do
+        @item.prefecture_code_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture code must be other than 0")
+      end
       it "preparation_day_idが空の時" do
         @item.preparation_day_id = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Preparation day can't be blank")
       end
-      
+      it "preparation_day_id:0の時" do
+        @item.preparation_day_id = 0
+       @item.valid?
+
+        expect(@item.errors.full_messages).to include("Preparation day must be other than 0")
+      end
       it "priceが空の時" do
         @item.price = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
       it "priceが299以下の時" do
-        @item.price = "299"
+        @item.price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not included in the list")
       end
       it "priceが10 000 000以上の時" do
-        @item.price = "10000000"
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not included in the list")
       end
@@ -81,6 +102,15 @@ RSpec.describe Item, type: :model do
         @item.price = "aaaaa"
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not included in the list")
+      end
+      
+      it "item_conditionが0の時登録できない" do
+      end
+      it "postage_payer_idが0の時登録できない" do
+      end
+      it "prefecture_code_idが0の時登録できない" do
+      end
+      it "preparation_day_idが0の時登録できない" do
       end
     end
   end
