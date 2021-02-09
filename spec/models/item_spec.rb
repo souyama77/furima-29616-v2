@@ -103,15 +103,6 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not included in the list")
       end
-      
-      it "item_conditionが0の時登録できない" do
-      end
-      it "postage_payer_idが0の時登録できない" do
-      end
-      it "prefecture_code_idが0の時登録できない" do
-      end
-      it "preparation_day_idが0の時登録できない" do
-      end
     end
   end
 end
