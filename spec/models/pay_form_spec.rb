@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.describe PayForm, type: :model do
   before do
-
-    @order = FactoryBot.build(:pay_form,)
+    @order = FactoryBot.build(:pay_form)
   end
 
   context "商品購入がうまくいく時" do
@@ -82,16 +81,6 @@ RSpec.describe PayForm, type: :model do
       @order.token = nil
       @order.valid?
       expect(@order.errors.full_messages).to include ("Token can't be blank")
-    end
-    it "user_idが空の時" do
-      @order.user_id = nil
-      @order.valid?
-      expect(@order.errors.full_messages).to include ("User can't be blank")
-    end
-    it "item_idが空の時" do
-      @order.item_id = nil
-      @order.valid?
-      expect(@order.errors.full_messages).to include("Item can't be blank")
     end
   end
 end
