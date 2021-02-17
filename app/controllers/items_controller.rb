@@ -8,16 +8,13 @@ class ItemsController < ApplicationController
     @item = Item.new
   end
   def show
-
   end
   def edit
-
     if current_user.id != @item.user_id
       redirect_to root_path
     end
   end
   def update
-
     if @item.update(item_params) && current_user.id == @item.user_id
       redirect_to item_path
     else
@@ -32,7 +29,6 @@ class ItemsController < ApplicationController
   end
   def create
     @item = Item.new(item_params)
-
     if @item.save
       redirect_to root_path
     else
