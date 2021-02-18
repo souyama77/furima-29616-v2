@@ -2,7 +2,11 @@ require 'rails_helper'
 
 RSpec.describe PayForm, type: :model do
   before do
-    @order = FactoryBot.build(:pay_form)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.build(:item, user_id: user.id)
+    item.save
+    @order = FactoryBot.build(:pay_form, user_id: user.id, item_id: item.id)
+    sleep 1
   end
 
   context "商品購入がうまくいく時" do
@@ -12,7 +16,6 @@ RSpec.describe PayForm, type: :model do
     end
     it "building_nameが空でも商品購入ができる" do
       @order.building_name = nil
-
       expect(@order).to be_valid
     end
   end
@@ -24,6 +27,16 @@ RSpec.describe PayForm, type: :model do
     end
     it "postal_codeにハイフンが無い時" do
       @order.postal_code = "1234567"
+      @order.valid?
+      expect(@order.errors.full_messages).to include ("Postal code is invalid")
+    end
+    it "postal_codeのハイフンの前に３文字の整数が無い時" do
+      @order.postal_code = "-1234"
+      @order.valid?
+      expect(@order.errors.full_messages).to include ("Postal code is invalid")
+    end
+    it "postal_codeのハイフン後は４文字の整数が無い時" do
+      @order.postal_code = "123-"
       @order.valid?
       expect(@order.errors.full_messages).to include ("Postal code is invalid")
     end
@@ -67,6 +80,11 @@ RSpec.describe PayForm, type: :model do
       @order.valid?
       expect(@order.errors.full_messages).to include ("Phone number is invalid")
     end
+    it "phone_numberが9桁以下の時" do
+      @order.phone_number = "123456789"
+      @order.valid?
+      expect(@order.errors.full_messages).to include ("Phone number is invalid")
+    end
     it "phone_numberに文字が含まれる時" do
       @order.phone_number = "a123456789b"
       @order.valid?
@@ -77,10 +95,25 @@ RSpec.describe PayForm, type: :model do
       @order.valid?
       expect(@order.errors.full_messages).to include ("Phone number is invalid")
     end
+    it "phone_numberにハイフンが含まれている時" do
+      @order.phone_number = "123-4567-8901"
+      @order.valid?
+      expect(@order.errors.full_messages).to include ("Phone number is invalid")
+    end
     it "tokenが空の時" do
       @order.token = nil
       @order.valid?
       expect(@order.errors.full_messages).to include ("Token can't be blank")
+    end
+    it "user_idが空の時" do
+      @order.user_id = nil
+      @order.valid?
+      expect(@order.errors.full_messages).to include ("User can't be blank")
+    end
+    it "item_idが空の時" do
+      @order.item_id = nil
+      @order.valid?
+      expect(@order.errors.full_messages).to include("Item can't be blank")
     end
   end
 end
