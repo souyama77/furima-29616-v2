@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe PayForm, type: :model do
   before do
     user = FactoryBot.create(:user)
-    item = FactoryBot.build(:item, user_id: user.id)
+    item = FactoryBot.create(:item)
     item.save
     @order = FactoryBot.build(:pay_form, user_id: user.id, item_id: item.id)
     sleep 1
