@@ -13,23 +13,23 @@
 
 ### Association
 has_many:items,dependent::destroy
-has_many：purchase_managementes,dependent::destroy
+has_many：orders,dependent::destroy
 
-## shippingsテーブル
+## addressesテーブル
 |  Colum             |  Type      |  Options        |
 | -------------------| -----------| ----------------|
-| post_code          | string     | null:false      |
+| postal_code        | string     | null:false      |
 | prefecture_code_id | integer    | null:false      |
 | city               | string     | null:false      |
-| house_num          | string     | null:false      |
+| house_number       | string     | null:false      |
 | building_name      | string     |                 |
-| phone_num          | string     | null:false      |
-|purchase_management | references | foreign_key:true|
+| phone_number       | string     | null:false      |
+| oder               | references | foreign_key:true|
 
 ### Association
-belongs_to:purchase_management
+belongs_to:order
 
-## purchase_managementsテーブル
+## ordersテーブル
 |colum| Type      | Options                    |
 | ----| ----------| ---------------------------|
 | user| references| null:false,foreign_key:true|
@@ -38,7 +38,7 @@ belongs_to:purchase_management
 ### Association
 belongs_to:user
 belongs_to:item
-has_one:shipping,destination::destroy
+has_one:addresses,destination::destroy
 
 ## itemsテーブル
 | Colum             | Type      | Options         |
@@ -55,4 +55,4 @@ has_one:shipping,destination::destroy
 
 ### Association
 belongs_to:user
-has_one:purchase_management,destinations::destroy
+has_one:order,destinations::destroy
